@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Prepara uma consulta SQL parametrizada para evitar injeção de SQL
-    $stmt = $conn->prepare("SELECT id_professor, nome FROM professores WHERE email = ? AND senha = ?");
+    $stmt = $conn->prepare("SELECT id, nome FROM Professor WHERE email = ? AND senha = ?");
     
     // Vincula os parâmetros à consulta preparada
     $stmt->bind_param("ss", $email, $senha);
@@ -34,11 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Verifica se exatamente uma linha foi retornada (autenticação bem-sucedida)
     if ($result->num_rows == 1) {
         // Autenticação bem-sucedida
-        $professores = $result->fetch_assoc();
+        $professor = $result->fetch_assoc();
         
         // Armazena informações do usuário na sessão
-        $_SESSION['user_id'] = $professores['id_professor'];
-        $_SESSION['user_name'] = $professores['nome'];
+        $_SESSION['user_id'] = $professor['id'];
+        $_SESSION['user_name'] = $professor['nome'];
         
         // Redireciona para a página principal
         header("Location: principal.php");
@@ -66,8 +66,65 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Login - Sistema de Gerenciamento de Turmas</title>
+    <style>
+        /* Estilos CSS para a página de login */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 10px;
+            background-color: #2196F3;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-login:hover {
+            background-color: #1976D2;
+        }
+        .alert {
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
     <div class="login-container">

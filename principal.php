@@ -24,11 +24,11 @@ if ($conn->connect_error) {
 $professor_id = $_SESSION['user_id'];
 
 // Prepara a query SQL para buscar as turmas do professor
-$sql = "SELECT id_turmas, nome FROM turmas WHERE professor = ?";
+$sql = "SELECT id, nome FROM Turma WHERE professor_id = ?";
 $stmt = $conn->prepare($sql);
 
 // Vincula o parâmetro à query
-$stmt->bind_param("i", $professor);
+$stmt->bind_param("i", $professor_id);
 
 // Executa a query
 $stmt->execute();
@@ -49,10 +49,92 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Tela Principal do Professor</title>
     <style>
-       
+        /* Estilos CSS para a página principal */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .navbar {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-brand {
+            font-size: 1.2em;
+        }
+        .btn-sair {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-cadastrar {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn-acao {
+            padding: 5px 10px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .btn-excluir {
+            background-color: #f44336;
+        }
+        .btn-visualizar {
+            background-color: #2196F3;
+        }
+        .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        .alert-success {
+            background-color: #dff0d8;
+            border-color: #d0e9c6;
+            color: #3c763d;
+        }
+        .alert-danger {
+            background-color: #f2dede;
+            border-color: #ebcccc;
+            color: #a94442;
+        }
     </style>
 </head>
 <body>
@@ -96,12 +178,12 @@ $conn->close();
                 <tbody>
                     <?php foreach ($turmas as $turma): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($turma['id_turmas']); ?></td>
+                        <td><?php echo htmlspecialchars($turma['id']); ?></td>
                         <td><?php echo htmlspecialchars($turma['nome']); ?></td>
                         <td>
                             <!-- Botões de ação para cada turma -->
-                            <a href="confirmar_exclusao_turma.php?id=<?php echo $turma['id_turmas']; ?>" class="btn-acao btn-excluir">Excluir</a>
-                            <a href="atividades_turma.php?id=<?php echo $turma['id_turmas']; ?>" class="btn-acao btn-visualizar">Visualizar</a>
+                            <a href="confirmar_exclusao_turma.php?id=<?php echo $turma['id']; ?>" class="btn-acao btn-excluir">Excluir</a>
+                            <a href="atividades_turma.php?id=<?php echo $turma['id']; ?>" class="btn-acao btn-visualizar">Visualizar</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
