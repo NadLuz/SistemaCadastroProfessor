@@ -228,3 +228,7 @@ input[type="text"] {
     border-radius: 4px;
     box-sizing: border-box;
 }
+
+p {
+    margin-bottom: 20px;
+}

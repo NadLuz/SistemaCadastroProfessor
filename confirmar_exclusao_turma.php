@@ -55,10 +55,11 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Confirmar Exclusão de Turma</title>
     <style>
         /* Estilos CSS para a página de confirmação de exclusão */
-        body {
+        /* body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -113,7 +114,7 @@ $conn->close();
             background-color: #f4f4f4;
             color: #333;
             margin-left: 10px;
-        }
+        } */
     </style>
 </head>
 <body>
