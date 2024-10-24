@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="style.css">
     <title>Login - Sistema de Gerenciamento de Turmas</title>    
 </head>
-<body>
+<body class="tela-login">
     <div class="login-container">
         <h2>Bem-vindo</h2>
         <?php
