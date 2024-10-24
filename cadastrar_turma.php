@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Prepara a query SQL para inserir a nova turma
-        $stmt = $conn->prepare("INSERT INTO Turma (nome, professor_id) VALUES (?, ?)");
+        $stmt = $conn->prepare("INSERT INTO turmas (nome, professor) VALUES (?, ?)");
         // Vincula os parâmetros à query
         $stmt->bind_param("si", $nome_turma, $professor_id);
 
