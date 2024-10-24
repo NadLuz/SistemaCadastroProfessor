@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Prepara uma consulta SQL parametrizada para evitar injeção de SQL
-    $stmt = $conn->prepare("SELECT id, nome FROM Professor WHERE email = ? AND senha = ?");
+    $stmt = $conn->prepare("SELECT id_professor, nome FROM professores WHERE email = ? AND senha = ?");
     
     // Vincula os parâmetros à consulta preparada
     $stmt->bind_param("ss", $email, $senha);
@@ -34,11 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Verifica se exatamente uma linha foi retornada (autenticação bem-sucedida)
     if ($result->num_rows == 1) {
         // Autenticação bem-sucedida
-        $professor = $result->fetch_assoc();
+        $professores = $result->fetch_assoc();
         
         // Armazena informações do usuário na sessão
-        $_SESSION['user_id'] = $professor['id'];
-        $_SESSION['user_name'] = $professor['nome'];
+        $_SESSION['user_id'] = $professores['id_professor'];
+        $_SESSION['user_name'] = $professores['nome'];
         
         // Redireciona para a página principal
         header("Location: principal.php");
@@ -68,9 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Login - Sistema de Gerenciamento de Turmas</title>
-    <style>
-
-    </style>
 </head>
 <body>
     <div class="login-container">
